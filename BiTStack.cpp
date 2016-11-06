@@ -1,47 +1,48 @@
-#include "SqStack.h"
+#include "BiTStack.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-Status InitStack (SqStack &S) {
-	S.base = (SElemType *)malloc(STATCK_INIT_SIZE * sizeof(SElemType));
+Status InitStack(BiTStack &S) {
+	S.base = (BiTNode **)malloc(STATCK_INIT_SIZE * sizeof(BiTNode*));
 	if (!S.base) exit(OVERFLOW);
 	S.top = S.base;
 	S.statcksize = STATCK_INIT_SIZE;
 	return OK;
 }
 
-Status GetTop(SqStack S, SElemType &e) {
+Status GetTop(BiTStack S, BiTNode ***e) {
 	if (S.top == S.base) return ERROR;
-	e = *(S.top - 1);
+	BiTNode** ptr = S.top;
+	*e = --ptr;
 	return OK;
 }
 
-Status Push(SqStack &S, SElemType e) {
+Status Push(BiTStack &S, BiTNode *e) {
 	if (S.top - S.base >= S.statcksize) {
-		S.base = (SElemType *)realloc(S.base, (S.statcksize + STATCKINCREMENT) * sizeof(SElemType));
+		S.base = (BiTNode **)realloc(S.base, (S.statcksize + STATCKINCREMENT) * sizeof(BiTNode*));
 
 		if (!S.base) exit(OVERFLOW);
 		S.top = S.base + S.statcksize;
 		S.statcksize += STATCKINCREMENT;
 	}
 
-	*S.top = e;
+	*(S.top) = e;
 	++S.top;
 	return OK;
 }
 
-Status Pop(SqStack &S, SElemType &e) {
+Status Pop(BiTStack &S, BiTNode **e) {
 	if (S.top == S.base) return ERROR;
-	e = *(--S.top);
+	*e = *(--S.top);
 	return OK;
 }
 
-Status StackEmpty(SqStack S) {
+Status StackEmpty(BiTStack S) {
 	if (S.base == S.top) return TRUE;
 	else return FALSE;
 }
 
-Status DestroyStack(SqStack &S) {
+Status DestroyStack(BiTStack &S) {
 	free(S.base);
 	S.base = NULL;
 	S.top = NULL;
@@ -49,16 +50,16 @@ Status DestroyStack(SqStack &S) {
 	return OK;
 }
 
-Status ClearStack(SqStack &S) {
+Status ClearStack(BiTStack &S) {
 	S.top = S.base;
 	return OK;
 }
 
-Status PrintStack(SqStack S) {
-	SElemType *ptr;
-	ptr = S.base;
-	while (ptr != S.top) {
-		putchar(*ptr);
+Status PrintStack(BiTStack S) {
+	BiTNode *ptr;
+	ptr = *S.base;
+	while (ptr != *S.top) {
+		putchar(ptr->data);
 		++ptr;
 	}
 	putchar('\n');

@@ -1,7 +1,6 @@
-#include "SqList.h"
+/**#include "SqList.h"
 #include<iostream>
 
-/**
 int main(int argc, char *argv) {
 	SqList sqlist;
 	ElemType e1;

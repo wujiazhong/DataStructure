@@ -2,14 +2,9 @@
 #ifndef SELEMTYPE_H
 #define SELEMTYPE_H
 
-typedef struct {
-	int val;
-}SElemType;
+typedef char SElemType;
 
-SElemType inline createSElemType(int val) {
-	SElemType e;
-	e.val = val;
-	return e;
-}
+SElemType createSElemType(SElemType val);
+void visit(SElemType e);
 
 #endif // !SELEMTYPE_H

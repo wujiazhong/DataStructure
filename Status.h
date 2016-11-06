@@ -8,8 +8,9 @@ enum Status {
 	FALSE = 0,
 	ERROR = 0,
 	TRUE = 1,
-	OK = 1,
+	OK = 1
 
 };
+
 
 #endif // !STATUS_H

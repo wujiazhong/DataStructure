@@ -3,7 +3,7 @@
 #define LINKLIST_H
 
 #include "ElemType.h"
-#include "Constant.h"
+#include "Status.h"
 
 //此行的LNode是结构体struct LNode的一个别名
 //*LinkList也是结构体struct LNode的一个别名
@@ -14,13 +14,13 @@ typedef struct LNode {
 	struct LNode *next;
 }LNode, *LinkList;
 
-int InitList_L(LinkList &L);
-int GetElem_L(LinkList &L, int i, ElemType &e);
-int ListDelete_L(LinkList &L, int i, ElemType &e);
-int ListInsert_L(LinkList &L, int i, ElemType e);
-void ListTraverse_L(LinkList L, void(*visit)(ElemType*));
-int ListLength_L(LinkList L, int &i);
-int DestroyList_L(LinkList &L);
-int ClearList_L(LinkList &L);
+Status InitList_L(LinkList &L);
+Status GetElem_L(LinkList &L, int i, ElemType &e);
+Status ListDelete_L(LinkList &L, int i, ElemType &e);
+Status ListInsert_L(LinkList &L, int i, ElemType e);
+void ListTraverse_L(LinkList L, void(*visit)(ElemType));
+Status ListLength_L(LinkList L, int &i);
+Status DestroyList_L(LinkList &L);
+Status ClearList_L(LinkList &L);
 
 #endif //!LINKLIST_H 

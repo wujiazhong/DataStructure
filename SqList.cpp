@@ -1,7 +1,7 @@
 ﻿#include "SqList.h"
 #include<iostream>
 
-int InitList_Sq(SqList &L) {
+Status InitList_Sq(SqList &L) {
 	L.elem = (ElemType *)malloc(LIST_INIT_SIZE * sizeof(ElemType));
 	if (!L.elem) exit(OVERFLOW);
 	L.length = 0;
@@ -9,7 +9,7 @@ int InitList_Sq(SqList &L) {
 	return OK;
 }
 
-int DestroyList_Sq(SqList &L) {
+Status DestroyList_Sq(SqList &L) {
 	if (L.elem) free(L.elem);
 	L.elem = NULL;
 	L.length = 0;
@@ -17,13 +17,13 @@ int DestroyList_Sq(SqList &L) {
 	return OK;
 }
 
-int ClearList_Sq(SqList &L)
+Status ClearList_Sq(SqList &L)
 {
 	L.length = 0;
 	return OK;
 }
 
-int ListEmpty_Sq(SqList &L) {
+bool ListEmpty_Sq(SqList &L) {
 	if (L.length)
 		return true;
 	else
@@ -34,7 +34,7 @@ int ListLength_Sq(SqList &L) {
 	return L.length;
 }
 
-int GetElem_Sq(SqList &L, int i, ElemType &e) {
+Status GetElem_Sq(SqList &L, int i, ElemType &e) {
 	if (i<1 || i>L.length) exit(ERROR);
 	e = *(L.elem + i - 1);
 	return OK;
@@ -49,7 +49,7 @@ int LocateElem_Sq(SqList L, ElemType e, int(*compare)(ElemType, ElemType)) {
 	else return 0;
 }
 
-int ListInsert_Sq(SqList &L, int i, ElemType e) {
+Status ListInsert_Sq(SqList &L, int i, ElemType e) {
 	ElemType *newbase, *q, *p;
 	if (i<1 || i>L.length + 1) 
 		return ERROR;
@@ -63,13 +63,13 @@ int ListInsert_Sq(SqList &L, int i, ElemType e) {
 	}
 	q = L.elem + i - 1;
 	for (p = L.elem + L.length - 1; p >= q; --p)
-		(p + 1)->val = p->val;
-	q->val = e.val;
+		*(++p) = *p;
+	*q = e;
 	++L.length;
 	return OK;
 }
 
-int PriorElem_Sq(SqList L, ElemType cur_e, ElemType &pre_e) {
+Status PriorElem_Sq(SqList L, ElemType cur_e, ElemType &pre_e) {
 	int i = 2;
 	ElemType *p = L.elem + 1;
 	while (i <= L.length && !compare(*p, cur_e)) {
@@ -87,7 +87,7 @@ int PriorElem_Sq(SqList L, ElemType cur_e, ElemType &pre_e) {
 	return OK;
 }
 
-int NextElem_Sq(SqList L, ElemType cur_e, ElemType &post_e) {
+Status NextElem_Sq(SqList L, ElemType cur_e, ElemType &post_e) {
 	int i = 1;
 	ElemType *p = L.elem;
 	while (i < L.length && !compare(*p, cur_e)) {
@@ -104,7 +104,7 @@ int NextElem_Sq(SqList L, ElemType cur_e, ElemType &post_e) {
 	return OK;
 }
 
-int ListTraverse(SqList L, void(*visit)(ElemType*)) {
+Status ListTraverse(SqList L, void(*visit)(ElemType*)) {
 	ElemType *p;
 	int i;
 	p = L.elem;
@@ -114,7 +114,7 @@ int ListTraverse(SqList L, void(*visit)(ElemType*)) {
 	return OK;
 }
 
-int ListDelete_Sq(SqList L, int i, ElemType &e) {
+Status ListDelete_Sq(SqList L, int i, ElemType &e) {
 	ElemType *q = L.elem + i -1;
 	e = *q;
 
@@ -138,26 +138,26 @@ void MergeList_Sq(SqList L1, SqList L2, SqList &L) {
 	ElemType *p1_last = L1.elem + L1.length - 1;
 	ElemType *p2_last = L2.elem + L2.length - 1;
 	while (p1 <= p1_last && p2 <= p2_last) {
-		if (p2->val > p1->val) {
-			p->val = p1->val;
+		if (*p2 > *p1) {
+			*p = *p1;
 			++p;
 			++p1;
 		}
 		else 
 		{
-			p->val = p2->val;
+			*p = *p2;
 			++p;
 			++p2;
 		}
 	}
 
 	while (p1 <= p1_last) {
-		p->val = p1->val;
+		*p = *p1;
 		++p;
 		++p1;
 	}
 	while (p2 <= p2_last) {
-		p->val = p2->val;
+		*p = *p2;
 		++p;
 		++p2;
 	}

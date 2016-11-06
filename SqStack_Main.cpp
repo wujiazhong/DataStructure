@@ -1,6 +1,8 @@
 #include "SqStack.h"
 #include "MazeUtils.h"
 #include <iostream>
+#include <string>
+#include <stdio.h>
 
 //数制转换
 void conversion() {
@@ -11,7 +13,7 @@ void conversion() {
 
 	while (N) {
 		SElemType e;
-		e.val = N % 8;
+		e = N % 8;
 		Push(S, e);
 		N /= 8;
 	}
@@ -19,7 +21,7 @@ void conversion() {
 	while (!StackEmpty(S)) {
 		SElemType e;
 		Pop(S, e);
-		printf("%d", e.val);
+		printf("%d", e);
 	}
 	DestroyStack(S);
 }
@@ -33,7 +35,7 @@ void lineEdit() {
 	while (ch != EOF) {
 		while (ch != EOF && ch != '\n') {
 			switch (ch) {
-			case '#': Pop(S, createSElemType(ch)); break;
+			case '#': Pop(S, ch); break;
 			case '@': ClearStack(S); break;
 			default: Push(S, createSElemType(ch)); break;
 			}
@@ -95,8 +97,14 @@ Status MazePath() {
 	return OK;
 }
 
+template <typename T1, typename T2>
+void doSth(T1 a, T2 b) {
+	std::cout << a << b;
+}
+/*
 int main(int argc, char* argv) {
 //	conversion();
 //	lineEdit();
-	MazePath();
+//	MazePath();
 }
+*/

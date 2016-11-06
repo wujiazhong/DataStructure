@@ -1,7 +1,7 @@
 #include "Triplet.h"
 #include <iostream>
 
-int InitTriplet(Triplet &T, int v1, int v2, int v3) {
+Status InitTriplet(Triplet &T, int v1, int v2, int v3) {
 	T = (int*)malloc(3 * sizeof(int));
 	if (!T) exit(OVERFLOW);
 

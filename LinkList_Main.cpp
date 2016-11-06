@@ -1,6 +1,6 @@
-#include "LinkList.h"
+/*#include "LinkList.h"
 #include<iostream>
-/*
+
 int main(int argc, char *argv) {
 	LinkList L;
 	InitList_L(L);
@@ -9,11 +9,11 @@ int main(int argc, char *argv) {
 	pf = visit;
 
 	ElemType e1;
-	e1.val = 1;
+	e1 = 1;
 	ListInsert_L(L, 1, e1);
 
 	ElemType e2;
-	e2.val = 2;
+	e2 = 2;
 	ListInsert_L(L, 2, e2);
 
 	ElemType e3;
@@ -26,7 +26,7 @@ int main(int argc, char *argv) {
 
 	ListInsert_L(L, 1, e1);
 	ClearList_L(L);
-	printf("LinkList head data %d\n", L->data.val);
+	printf("LinkList head data %d\n", L->data);
 	printf("LinkList is clear? %d\n", L->next == NULL);
 
 	DestroyList_L(L);
