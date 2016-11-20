@@ -1,7 +1,7 @@
 #include "BiTree.h"
 #include <iostream>
 
-int main(int argc, char* argv) {
+int main(int argc, char** argv) {
 	BiTree T;
 	InitBiTree(T);
 	CreateBiTree(T);
